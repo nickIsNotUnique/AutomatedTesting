@@ -1,15 +1,15 @@
 import { test as base } from '@playwright/test';
-import {HomePage} from "./POMs/Home/HomePage";
+import {PagesManager} from "./POMs/PagesManager";
 
 export const test = base.extend({
-    /**@type {HomePage}*/ homePage: async ({ baseURL, browser }, use) => {
+    /**@type {PagesManager}*/ pagesManager: async ({ baseURL, browser }, use) => {
         // Set up the fixture
         const context = await browser.newContext()
         const page = await context.newPage()
-        await page.goto(baseURL);
 
-        const pom = new HomePage(page)
-        await pom.closeCookiesBanner()
+        const pom = new PagesManager(page)
+        await pom.page.goto(baseURL);
+        await pom.homePage.closeCookiesBanner()
 
         // Use the fixture value in the tests
         await use(pom)

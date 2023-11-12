@@ -30,6 +30,7 @@ export class HomePage {
             await this.searchForm.waitFor()
             const searchRequest = this.page.waitForResponse(
                 response => response.url().includes(`s?q=${keyword}`) && response.status() === 200
+                // response => response.status() === 200
             )
             await this.seachForm.input.fill(keyword)
             await this.seachForm.submit.click()
