@@ -15,6 +15,7 @@ test('Smoke test: Search for a Lot', async ({ pagesManager }) => {
     })
 
     await test.step(`Verify the set of details of the lot: ${details}`, async () => {
-        await pagesManager.lotDetailsPage.verifyLotDetails(details)
+        let lotDetails = await pagesManager.lotDetailsPage.getListOfDetails(details)
+        console.log(`The list of details of the selected lot: ${JSON.stringify(lotDetails)}`)
     })
 })

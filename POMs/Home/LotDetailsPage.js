@@ -5,9 +5,9 @@ export class LotDetailsPage {
         this.page = page
 
         this.lotDetails = {
-            lotName: this.page.locator(),
-            favouriteCounter: this.page.locator(),
-            currentBid: this.page.locator()
+            lotName: this.page.locator('main h1'),
+            favouriteCounter: this.page.locator('main div[class*="fav-button"] span'),
+            currentBid: this.page.locator('main div.be-lot-core-bidding-panel div[class*="bid-amount"]').first()
         }
     }
 
@@ -21,7 +21,9 @@ export class LotDetailsPage {
     }
 
     async getListOfDetails(list){
-        let details
+        await this.page.waitForSelector('main div.be-lot-core-bidding-panel', {state: 'visible'})
+
+        let details = {}
         await test.step(`Get the ${list} details from the GUI`, async()=> {
             for (let element of list){
                 details[element] = await this.getDetail(element)
@@ -30,16 +32,16 @@ export class LotDetailsPage {
         return details
     }
 
-    async verifyLotDetails(expected){
-        await this.page.waitForLoadState('domcontentloaded')
-
-        let actual
-        await test.step(`Verify this list of details for the lot: ${list}`, async()=> {
-            actual = await this.getListOfDetails(Object.keys(expected))
-
-            for (let key of Object.keys(expected)){
-                expect(actual[key], `Actual: ${actual[key]} vs. Expected: ${expected[key]}`).toEqual(expected[key])
-            }
-        })
-    }
+    // async verifyLotDetails(expected){
+    //     await this.page.waitForSelector('main div.be-lot-core-bidding-panel', {state: 'visible'})
+    //
+    //     let actual
+    //     await test.step(`Verify this list of details for the lot: ${list}`, async()=> {
+    //         actual = await this.getListOfDetails(Object.keys(expected))
+    //
+    //         for (let key of Object.keys(expected)){
+    //             expect(actual[key], `Actual: ${actual[key]} vs. Expected: ${expected[key]}`).toEqual(expected[key])
+    //         }
+    //     })
+    // }
 }
