@@ -1,4 +1,3 @@
-import {expect, test} from "@playwright/test";
 import {HomePage} from "./Home/HomePage";
 import {SearchResultsPage} from "./Home/SearchResultsPage";
 import {LotDetailsPage} from "./Home/LotDetailsPage";

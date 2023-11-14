@@ -17,6 +17,9 @@ export class HomePage {
         this.searchForm = this.page.locator('[class*="main-wrapper"] [data-react-component-assets="Search"]')
     }
 
+    /**
+     * @returns {void}
+     */
     async closeCookiesBanner(){
         await test.step(`Close the cookies banner if present`,async () => {
             await this.page.waitForTimeout(2000)
@@ -27,6 +30,10 @@ export class HomePage {
         })
     }
 
+    /**
+     * @param keyword
+     * @returns {void}
+     */
     async searchByKeyword(keyword){
         await test.step(`Search by a ${keyword} keyword`,async () => {
             await this.searchForm.waitFor()

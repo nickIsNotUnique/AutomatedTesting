@@ -11,6 +11,10 @@ export class LotDetailsPage {
         }
     }
 
+    /**
+     * @param detail
+     * @returns {string}
+     */
     async getDetail(detail){
         let result
         await test.step(`Get the ${detail} detail from the GUI`, async()=> {
@@ -20,11 +24,15 @@ export class LotDetailsPage {
         return result
     }
 
+    /**
+     * @param list
+     * @returns {array}
+     */
     async getListOfDetails(list){
-        await this.page.waitForSelector('main div.be-lot-core-bidding-panel', {state: 'visible'})
-
         let details = {}
         await test.step(`Get the ${list} details from the GUI`, async()=> {
+            await this.page.waitForSelector('main div.be-lot-core-bidding-panel', {state: 'visible'})
+
             for (let element of list){
                 details[element] = await this.getDetail(element)
             }
@@ -32,6 +40,11 @@ export class LotDetailsPage {
         return details
     }
 
+    // TODO: can be used when it needs to verify the details parsed from the page
+    // /**
+    //  * @param expected
+    //  * @returns {void}
+    //  */
     // async verifyLotDetails(expected){
     //     await this.page.waitForSelector('main div.be-lot-core-bidding-panel', {state: 'visible'})
     //
