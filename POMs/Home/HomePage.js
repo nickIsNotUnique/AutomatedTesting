@@ -18,23 +18,23 @@ export class HomePage {
     }
 
     async closeCookiesBanner(){
-        await this.page.waitForTimeout(2000)
+        await test.step(`Close the cookies banner if present`,async () => {
+            await this.page.waitForTimeout(2000)
 
-        if (this.cookiesBanner.close.isVisible()){
-            await this.cookiesBanner.close.click()
-        }
+            if (this.cookiesBanner.close.isVisible()){
+                await this.cookiesBanner.close.click()
+            }
+        })
     }
 
     async searchByKeyword(keyword){
         await test.step(`Search by a ${keyword} keyword`,async () => {
             await this.searchForm.waitFor()
-            const searchRequest = this.page.waitForResponse(
-                response => response.url().includes(`s?q=${keyword}`) && response.status() === 200
-                // response => response.status() === 200
-            )
             await this.seachForm.input.fill(keyword)
             await this.seachForm.submit.click()
-            await searchRequest
+            await this.page.wait
+            let pageUrl = await this.page.url()
+            expect(pageUrl, 'The Search Page has been opened').toContain(`/s/?q=${keyword}`)
         })
     }
 }
