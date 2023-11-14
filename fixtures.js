@@ -9,6 +9,7 @@ export const test = base.extend({
             const page = await context.newPage()
 
             const pom = new PagesManager(page)
+            console.log('Opens the Home page...')
             await pom.page.goto(baseURL);
             await pom.homePage.closeCookiesBanner()
 

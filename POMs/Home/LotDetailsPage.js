@@ -3,6 +3,7 @@ import {expect, test} from "@playwright/test";
 export class LotDetailsPage {
     constructor(page) {
         this.page = page
+        this.pageName = 'Lot Details'
 
         this.lotDetails = {
             lotName: this.page.locator('main h1'),
@@ -21,6 +22,7 @@ export class LotDetailsPage {
             await this.lotDetails[detail].waitFor()
             result = await this.lotDetails[detail].textContent()
         })
+        console.log(`${this.pageName}: The ${detail} for this lot = ${result}`)
         return result
     }
 

@@ -3,6 +3,7 @@ import {expect, test} from "@playwright/test";
 export class HomePage {
     constructor(page) {
         this.page = page
+        this.pageName = 'Home'
 
         this.cookiesBanner = {
             close: this.page.locator('div.cw-cookies-bar').getByRole('button', {name: 'Continue without accepting'})
@@ -25,6 +26,7 @@ export class HomePage {
             await this.page.waitForTimeout(2000)
 
             if (this.cookiesBanner.close.isVisible()){
+                console.log(`${this.pageName}: Close the cookies banner`)
                 await this.cookiesBanner.close.click()
             }
         })
@@ -41,6 +43,7 @@ export class HomePage {
             await this.seachForm.submit.click()
             await this.page.wait
             let pageUrl = await this.page.url()
+            console.log('Opens the Search Results page...')
             expect(pageUrl, 'The Search Page has been opened').toContain(`/s/?q=${keyword}`)
         })
     }
